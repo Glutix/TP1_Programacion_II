@@ -1,0 +1,16 @@
+[
+    {
+        "nombre": "Glutix",
+        "apellido": "Ferreyra",
+        "dni": "40034493",
+        "fecha_nacimiento": "21-01-1997",
+        "nacionalidad": "Argentina"
+    },
+    {
+        "nombre": "Alejandro",
+        "apellido": "vargas",
+        "dni": "39461232",
+        "fecha_nacimiento": "14-04-1997",
+        "nacionalidad": "Peruano"
+    }
+]
