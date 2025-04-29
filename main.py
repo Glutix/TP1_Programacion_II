@@ -1,4 +1,7 @@
 from modulos.pacientes import menu_pacientes
+from modulos.medicos import menu_medicos
+from modulos.historias import menu_historial_clinico
+from modulos.busquedas import menu_busquedas
 import os
 
 # Interfaz de usuario:
@@ -8,7 +11,8 @@ while True:
     print(" 1. Gestionar Pacientes.")
     print(" 2. Gestionar Historias Clinícas.")
     print(" 3. Gestionar Médicos.")
-    print(" 4. Salir.\n")
+    print(" 4. Buscar a un cliente.")
+    print(" 5. Salir.\n")
 
     try:
         opcion = int(input(" Seleccione una opcion: "))
@@ -21,13 +25,17 @@ while True:
 
         elif opcion == 2:
             os.system("cls")
-            pass
+            menu_historial_clinico()
 
         elif opcion == 3:
             os.system("cls")
-            pass
+            menu_medicos()
 
         elif opcion == 4:
+            os.system("cls")
+            menu_busquedas()
+
+        elif opcion == 5:
             os.system("cls")
             break
 
@@ -37,19 +45,3 @@ while True:
     except ValueError:
         print("Opción no válida. Por favor, ingrese un número.")
         continue
-
-
-""" # Historial clinica
-now = datetime.now()
-fecha = f"{now.year}/{now.month}/{now.day} - {now.hour}:{now.minute}:{now.second}"
-enfermedad_afeccion = "Corona virus"
-medico = "Mauro Perez"
-observaciones = "Mucha fiebre y mal de chaga"
-historia_clinica = [
-    {
-        "fecha": fecha,
-        "enfermedad_afeccion": enfermedad_afeccion,
-        "medico": medico,
-        "observaciones": observaciones,
-    }
-] """

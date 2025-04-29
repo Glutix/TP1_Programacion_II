@@ -32,3 +32,23 @@ def escribir_json(path, datos):
     with open(path, "w") as file:
         json.dump(datos, file, indent=4)
     print("Datos guardados correctamente.")
+
+
+def buscar_paciente_dni(dni, datos):
+    for i, paciente in enumerate(datos):
+        if paciente["dni"] == dni:
+            return paciente, i
+    return f"No se encontró el paciente con DNI: {dni}"
+
+
+def generar_id(datos):
+    if datos:
+        max_id = 0
+        for elemento in datos:
+            if elemento["id"] > max_id:
+                max_id = elemento["id"]
+        nuevo_id = max_id + 1
+    else:
+        nuevo_id = 1
+
+    return nuevo_id
