@@ -1,5 +1,6 @@
 import json
 import os
+import time
 
 
 def validar_archivo(path):
@@ -52,3 +53,39 @@ def generar_id(datos):
         nuevo_id = 1
 
     return nuevo_id
+
+
+def fecha_actual():
+    tiempo_actual = time.localtime()
+
+    # datos actuales
+    anio = tiempo_actual.tm_year
+    mes = tiempo_actual.tm_mon
+    dia = tiempo_actual.tm_mday
+
+    # Asegurarse de que el día y mes siempre tengan 2 dígitos
+    fecha = f"{dia:02d}/{mes:02d}/{anio}"
+    return fecha
+
+
+def calcular_edad(fecha_nacimiento):
+    # Datos actuales
+    tiempo_actual = time.localtime()
+
+    anio_actual = tiempo_actual.tm_year
+    mes_actual = tiempo_actual.tm_mon
+    dia_actual = tiempo_actual.tm_mday
+
+    # datos recibidos
+    dia = int(fecha_nacimiento[:2])
+    mes = int(fecha_nacimiento[3:5])
+    anio_nacimiento = int(fecha_nacimiento[6:])
+
+    # calcular edad
+    edad = anio_actual - anio_nacimiento
+
+    # Ajustar la edad si no ha cumplido años aún este año
+    if (mes_actual, dia_actual) < (mes, dia):
+        edad -= 1
+
+    return edad

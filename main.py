@@ -11,7 +11,7 @@ while True:
     print(" 1. Gestionar Pacientes.")
     print(" 2. Gestionar Historias Clinícas.")
     print(" 3. Gestionar Médicos.")
-    print(" 4. Buscar a un cliente.")
+    print(" 4. Gestionar Busquedas.")
     print(" 5. Salir.\n")
 
     try:
