@@ -12,7 +12,15 @@
         "nombre": "Alejandro",
         "apellido": "Vargas",
         "dni": "39847573",
-        "fecha_nacimiento": "21/04/96",
+        "fecha_nacimiento": "21/04/1996",
         "nacionalidad": "Peruano"
+    },
+    {
+        "id": 3,
+        "nombre": "Alexis",
+        "apellido": "Ramon",
+        "dni": "36111111",
+        "fecha_nacimiento": "25/12/1996",
+        "nacionalidad": "Chileno"
     }
 ]

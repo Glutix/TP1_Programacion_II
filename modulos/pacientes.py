@@ -1,48 +1,38 @@
-from utils.constantes import PACIENTES_PATH
+from utils.constantes import PACIENTES_PATH, campos_paciente
 from utils.utilidades import (
-    validar_archivo,
     escribir_json,
     leer_json,
-    buscar_paciente_dni,
-    generar_id,
+    solicitar_datos,
+    actualizar_registro,
+    crear_registro,
+    obtener_por_dni,
+    existe_dni,
+    eliminar_registro,
+    limpiar_consola,
 )
 import os
 
 
 def registrar_paciente():
-    nombre = input("Ingrese su nombre: ")
-    apellido = input("Ingrese su apellido: ")
-    dni = input("Ingrese su DNI: ")
-    fecha_nacimiento = input("Ingrese su fecha de nacimiento (DD/MM/AAAA): ")
-    nacionalidad = input("Ingrese su nacionalidad: ")
-
     # Obtener los datos existentes del archivo
     datos_existentes = leer_json(PACIENTES_PATH)
+    datos_formulario = solicitar_datos(campos_paciente)
 
-    # Verificar si ya existe el paciente
-    for elemento in datos_existentes:
-        if elemento["dni"] == dni:
-            print("El paciente ya existe.")
-            return
+    # Verificamos si el dni no esta registrado
+    if existe_dni(datos_existentes, datos_formulario["dni"]):
+        limpiar_consola()
+        print(f"El paciente con {datos_formulario['dni']} ya esta registrado...")
+        return
 
-    # Generar un ID
-    nuevo_id = generar_id(datos_existentes)
-
-    # Crear estructura de datos
-    paciente = {
-        "id": nuevo_id,
-        "nombre": nombre,
-        "apellido": apellido,
-        "dni": dni,
-        "fecha_nacimiento": fecha_nacimiento,
-        "nacionalidad": nacionalidad,
-    }
-
-    # Agregamos al nuevo paciente
-    datos_existentes.append(paciente)
+    # Creamos el nuevo registro
+    datos_actualizados = crear_registro(
+        datos_existentes, datos_formulario, campos_paciente
+    )
 
     # Sobre-escribir el archivo json con los datos actualizados
-    escribir_json(PACIENTES_PATH, datos_existentes)
+    escribir_json(PACIENTES_PATH, datos_actualizados)
+    limpiar_consola()
+    print("Paciente registrado correctamente.\n")
 
 
 def editar_paciente():
@@ -52,64 +42,47 @@ def editar_paciente():
     # Obtener los datos existentes del archivo
     datos_existentes = leer_json(PACIENTES_PATH)
 
-    # Retorna un string si no se encontro, o una tupla si se encontro (paciente, indice).
-    resultado_busqueda = buscar_paciente_dni(dni, datos_existentes)
-
-    # Verificar si no se encontro el paciente
-    if isinstance(resultado_busqueda, str):
-        print(resultado_busqueda)
+    # Verificar si existe el registro
+    if not existe_dni(datos_existentes, dni):
+        print(f"El paciente con {dni} no esta registado...")
         return
 
-    # separamos el paciente y el indice
-    paciente_encontrado, indice = resultado_busqueda
+    # recuperar el paciente
+    paciente = obtener_por_dni(datos_existentes, dni)
 
-    os.system("cls")
+    limpiar_consola()
     print("Paciente encontrado...")
-    for clave, valor in paciente_encontrado.items():
+    for clave, valor in paciente.items():
         print(f"{clave} - {valor}")
 
-    print("A continuación modifique los campos que crea necesario.")
+    print("\nA continuación modifique los campos que crea necesario.")
     print("Si no desea modificar, No ingrese nada.\n")
 
     # Solicitar los nuevos valores
-    nombre_edit = input("Ingrese su nombre: ")
-    apellido_edit = input("Ingrese su apellido: ")
-    dni_edit = input("Ingrese su DNI: ")
-    fecha_edit = input("Ingrese su fecha de nacimiento (DD/MM/AAAA): ")
-    nacionalidad_edit = input("Ingrese su nacionalidad: ")
+    paciente_editado = solicitar_datos(campos_paciente)
 
-    # Crear el diccionario para el paciente modificado
-    paciente_edit = {
-        "id": paciente_encontrado["id"],
-        "nombre": nombre_edit if nombre_edit else paciente_encontrado["nombre"],
-        "apellido": apellido_edit if apellido_edit else paciente_encontrado["apellido"],
-        "dni": dni_edit if dni_edit else paciente_encontrado["dni"],
-        "fecha_nacimiento": (
-            fecha_edit if fecha_edit else paciente_encontrado["fecha_nacimiento"]
-        ),
-        "nacionalidad": (
-            nacionalidad_edit
-            if nacionalidad_edit
-            else paciente_encontrado["nacionalidad"]
-        ),
-    }
+    # Crear un diccionario para el registro modificado
+    paciente_modificado = actualizar_registro(paciente, paciente_editado)
 
-    # Mostrar el paciente modificado
+    # Mostrar la modificacion del registro
     print("\nPaciente modificado...")
-    for clave, valor in paciente_edit.items():
+    for clave, valor in paciente_modificado.items():
         print(f"{clave}: {valor}")
 
     while True:
-        opcion = input("Desea elminar al paciente (s/n)? ").lower()
+        opcion = input("Desea modificar al paciente (s/n)? ").lower()
 
         if opcion == "n":
-            print("No se realizo ninguna accion.")
+            limpiar_consola()
+            print("Operación cancelada por el usuario.\n")
             break
         elif opcion == "s":
             # Modificar el archivo con los datos actualizados
-            datos_existentes[indice] = paciente_edit
+            indice = datos_existentes.index(paciente)
+            datos_existentes[indice] = paciente_modificado
             escribir_json(PACIENTES_PATH, datos_existentes)
-            print("Paciente actualizado correctamente.")
+            limpiar_consola()
+            print("Paciente actualizado correctamente.\n")
             return
 
         else:
@@ -124,34 +97,33 @@ def eliminar_paciente():
     # Obtener los datos existentes del archivo
     datos_existentes = leer_json(PACIENTES_PATH)
 
-    # Retorna un string si no se encontro, o una tupla si se encontro (paciente, indice).
-    resultado_busqueda = buscar_paciente_dni(dni, datos_existentes)
+    # Verificar si existe el registro
+    if not existe_dni(datos_existentes, dni):
+        print(f"El paciente con {dni} no esta registado...")
+        return
 
-    # Verificar si no se encontro el paciente
-    if isinstance(resultado_busqueda, str):
-        return resultado_busqueda
+    # Si existe traemos el registro
+    paciente = obtener_por_dni(datos_existentes, dni)
 
-    # separamos el paciente y el indice
-    paciente_encontrado, indice = resultado_busqueda
-
-    os.system("cls")
-    print("Paciente encontrado...")
-    for clave, valor in paciente_encontrado.items():
+    limpiar_consola()
+    print("Paciente encontrado.\n")
+    for clave, valor in paciente.items():
         print(f"{clave} - {valor}")
 
     while True:
-        opcion = input("Desea elminar al paciente (s/n)? ").lower()
+        opcion = input("\nDesea eliminar al paciente (s/n)? ").lower()
 
         if opcion == "n":
-            print("No se realizo ninguna accion.")
+            limpiar_consola()
+            print("Operación cancelada por el usuario.\n")
             break
         elif opcion == "s":
             # remover el paciente de los datos existentes
-            datos_existentes.pop(indice)
+            datos_actualizados = eliminar_registro(datos_existentes, paciente)
 
             # sobre escribir el archivo json
-            escribir_json(PACIENTES_PATH, datos_existentes)
-
+            escribir_json(PACIENTES_PATH, datos_actualizados)
+            limpiar_consola()
             print("Se guardaron los cambios correctamente.\n")
             return
         else:
@@ -166,19 +138,17 @@ def listar_pacientes():
         print("No hay pacientes registrados.")
         return
 
+    limpiar_consola()
     print("\nLista de pacientes...")
 
     for paciente in datos_existentes:
         print(
-            f"Nombre y Apellido: {paciente["nombre"]} {paciente["apellido"]} | DNI: {paciente["dni"]} | Nacionalidad: {paciente["nacionalidad"]}"
+            f"Nombre y Apellido: {paciente['nombre']} {paciente['apellido']} | DNI: {paciente['dni']} | Nacionalidad: {paciente['nacionalidad']}"
         )
     print()
 
 
 def menu_pacientes():
-    # Verificar si el archivo existe, si no, crearlo
-    validar_archivo(PACIENTES_PATH)
-
     while True:
         print("Eliga una opcion:")
         print("1. Registrar un paciente.")
@@ -204,7 +174,7 @@ def menu_pacientes():
                 listar_pacientes()
 
             elif opcion == 5:
-                os.system("cls")
+                limpiar_consola()
                 break
 
             elif opcion == 6:

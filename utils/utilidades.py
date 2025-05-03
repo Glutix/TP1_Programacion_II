@@ -1,91 +1,75 @@
 import json
 import os
-import time
+from datetime import datetime
+
+
+def solicitar_datos(campos):
+    return {c: input(f"Ingrese {c}: ").strip() for c in campos}
+
+
+def crear_registro(lista_existente, nuevo_dato, campos):
+    nuevo_id = generar_id(lista_existente)
+    nuevo_registro = {"id": nuevo_id, **{campo: nuevo_dato[campo] for campo in campos}}
+    return lista_existente + [nuevo_registro]
+
+
+def actualizar_registro(original, nuevos_valores):
+    return {clave: nuevos_valores.get(clave) or original[clave] for clave in original}
+
+
+def eliminar_registro(datos, registro):
+    return [e for e in datos if e != registro]
+
+
+def existe_dni(datos, dni):
+    return any(p["dni"] == dni for p in datos)
+
+
+def obtener_por_dni(datos, dni):
+    return next((p for p in datos if p["dni"] == dni), None)
 
 
 def validar_archivo(path):
-    if not os.path.exists(path):
+    try:
+        with open(path, "r") as file:
+            json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
         with open(path, "w") as file:
             json.dump([], file)
-    else:
-        try:
-            with open(path, "r") as file:
-                json.load(file)
-        except json.JSONDecodeError:
-            print("El archivo no es un JSON válido. Se creará uno nuevo.")
-            with open(path, "w") as file:
-                json.dump([], file)
 
 
 def leer_json(path):
-    # Obtener los datos existentes del archivo
+    validar_archivo(path)
     with open(path, "r") as file:
         try:
-            datos_existentes = json.load(file)
+            return json.load(file)
         except json.JSONDecodeError:
-            datos_existentes = []
-
-    return datos_existentes
+            return []
 
 
 def escribir_json(path, datos):
-    # Sobrescribir el archivo JSON con los datos actualizados
     with open(path, "w") as file:
         json.dump(datos, file, indent=4)
-    print("Datos guardados correctamente.")
-
-
-def buscar_paciente_dni(dni, datos):
-    for i, paciente in enumerate(datos):
-        if paciente["dni"] == dni:
-            return paciente, i
-    return f"No se encontró el paciente con DNI: {dni}"
 
 
 def generar_id(datos):
     if datos:
-        max_id = 0
-        for elemento in datos:
-            if elemento["id"] > max_id:
-                max_id = elemento["id"]
-        nuevo_id = max_id + 1
-    else:
-        nuevo_id = 1
-
-    return nuevo_id
+        return max(registro["id"] for registro in datos) + 1
+    return 1
 
 
 def fecha_actual():
-    tiempo_actual = time.localtime()
-
-    # datos actuales
-    anio = tiempo_actual.tm_year
-    mes = tiempo_actual.tm_mon
-    dia = tiempo_actual.tm_mday
-
-    # Asegurarse de que el día y mes siempre tengan 2 dígitos
-    fecha = f"{dia:02d}/{mes:02d}/{anio}"
-    return fecha
+    return datetime.today().strftime("%d/%n/%Y")
 
 
 def calcular_edad(fecha_nacimiento):
-    # Datos actuales
-    tiempo_actual = time.localtime()
-
-    anio_actual = tiempo_actual.tm_year
-    mes_actual = tiempo_actual.tm_mon
-    dia_actual = tiempo_actual.tm_mday
-
-    # datos recibidos
-    dia = int(fecha_nacimiento[:2])
-    mes = int(fecha_nacimiento[3:5])
-    anio_nacimiento = int(fecha_nacimiento[6:])
-
-    # calcular edad
-    edad = anio_actual - anio_nacimiento
-
-    # Ajustar la edad si no ha cumplido años aún este año
-    if (mes_actual, dia_actual) < (mes, dia):
+    nacimiento = datetime.strptime(fecha_nacimiento, "%d/%m/%Y")
+    hoy = datetime.today()
+    edad = hoy.year - nacimiento.year
+    if (hoy.month, hoy.day) < (nacimiento.month, nacimiento.day):
         edad -= 1
-
     return edad
+
+
+def limpiar_consola():
+    os.system("cls" if os.name == "nt" else "clear")
