@@ -5,7 +5,7 @@
         "apellido": "Ferreyra",
         "dni": "40034493",
         "fecha_nacimiento": "21/01/1997",
-        "nacionalidad": "Argentina"
+        "nacionalidad": "Argentino"
     },
     {
         "id": 2,
@@ -22,5 +22,13 @@
         "dni": "36111111",
         "fecha_nacimiento": "25/12/1996",
         "nacionalidad": "Chileno"
+    },
+    {
+        "id": 4,
+        "nombre": "Mario",
+        "apellido": "Gimenez",
+        "dni": "36984345",
+        "fecha_nacimiento": "21/05/1991",
+        "nacionalidad": "Boliviano"
     }
 ]

@@ -1,20 +1,16 @@
 [
     {
         "id": 1,
-        "nombre": "Juan",
-        "apellido": "Perez",
-        "especialidad": "Pediatra"
+        "nombre": "Mario",
+        "apellido": "Caseres",
+        "matricula": "1234",
+        "especialidad": "Cirujano"
     },
     {
         "id": 2,
-        "nombre": "Viviana",
-        "apellido": "Caseres",
-        "especialidad": "Cirujia"
-    },
-    {
-        "id": 3,
-        "nombre": "leo",
-        "apellido": "messi",
-        "especialidad": "clinico"
+        "nombre": "Juan",
+        "apellido": "Perez",
+        "matricula": "456",
+        "especialidad": "Clinico"
     }
 ]

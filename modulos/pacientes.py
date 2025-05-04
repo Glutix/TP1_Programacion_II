@@ -1,4 +1,4 @@
-from utils.constantes import PACIENTES_PATH, campos_paciente
+from utils.constantes import PACIENTES_PATH, PACIENTES_CAMPOS
 from utils.utilidades import (
     escribir_json,
     leer_json,
@@ -16,7 +16,7 @@ import os
 def registrar_paciente():
     # Obtener los datos existentes del archivo
     datos_existentes = leer_json(PACIENTES_PATH)
-    datos_formulario = solicitar_datos(campos_paciente)
+    datos_formulario = solicitar_datos(PACIENTES_CAMPOS)
 
     # Verificamos si el dni no esta registrado
     if existe_dni(datos_existentes, datos_formulario["dni"]):
@@ -26,7 +26,7 @@ def registrar_paciente():
 
     # Creamos el nuevo registro
     datos_actualizados = crear_registro(
-        datos_existentes, datos_formulario, campos_paciente
+        datos_existentes, datos_formulario, PACIENTES_CAMPOS
     )
 
     # Sobre-escribir el archivo json con los datos actualizados
@@ -44,14 +44,15 @@ def editar_paciente():
 
     # Verificar si existe el registro
     if not existe_dni(datos_existentes, dni):
-        print(f"El paciente con {dni} no esta registado...")
+        limpiar_consola()
+        print(f"El paciente con {dni} no esta registado...\n")
         return
 
     # recuperar el paciente
     paciente = obtener_por_dni(datos_existentes, dni)
 
     limpiar_consola()
-    print("Paciente encontrado...")
+    print("Paciente encontrado...\n")
     for clave, valor in paciente.items():
         print(f"{clave} - {valor}")
 
@@ -59,18 +60,19 @@ def editar_paciente():
     print("Si no desea modificar, No ingrese nada.\n")
 
     # Solicitar los nuevos valores
-    paciente_editado = solicitar_datos(campos_paciente)
+    paciente_editado = solicitar_datos(PACIENTES_CAMPOS)
 
     # Crear un diccionario para el registro modificado
     paciente_modificado = actualizar_registro(paciente, paciente_editado)
 
     # Mostrar la modificacion del registro
-    print("\nPaciente modificado...")
+    limpiar_consola()
+    print("Paciente modificado...\n")
     for clave, valor in paciente_modificado.items():
         print(f"{clave}: {valor}")
 
     while True:
-        opcion = input("Desea modificar al paciente (s/n)? ").lower()
+        opcion = input("\nDesea modificar al paciente (s/n)? ").lower()
 
         if opcion == "n":
             limpiar_consola()
@@ -150,7 +152,7 @@ def listar_pacientes():
 
 def menu_pacientes():
     while True:
-        print("Eliga una opcion:")
+        print("Seleccione una opcion:")
         print("1. Registrar un paciente.")
         print("2. Modificar un paciente.")
         print("3. Eliminar un paciente.")

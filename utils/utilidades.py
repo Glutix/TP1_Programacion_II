@@ -29,6 +29,14 @@ def obtener_por_dni(datos, dni):
     return next((p for p in datos if p["dni"] == dni), None)
 
 
+def obtener_por_matricula(datos, matricula):
+    return next((p for p in datos if p["matricula"] == matricula), None)
+
+
+def existe_matricula(datos, matricula):
+    return any(p["matricula"] == matricula for p in datos)
+
+
 def validar_archivo(path):
     try:
         with open(path, "r") as file:

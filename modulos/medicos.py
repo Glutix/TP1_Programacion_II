@@ -1,12 +1,16 @@
-from utils.constantes import MEDICOS_PATH
-from utils.utilidades import validar_archivo, leer_json, escribir_json, generar_id
-import os
+from utils.constantes import MEDICOS_PATH, MEDICOS_CAMPOS
+from utils.utilidades import (
+    leer_json,
+    solicitar_datos,
+    crear_registro,
+    escribir_json,
+    limpiar_consola,
+)
 
 
 def registrar_medico():
-    nombre = input("Ingrese su nombre: ")
-    apellido = input("Ingrese su apellido: ")
-    especialidad = input("Ingrese su especialidad: ")
+    # solicitar datos
+    datos_formulario = solicitar_datos(MEDICOS_CAMPOS)
 
     # Obtener los datos existentes del archivo
     datos_existentes = leer_json(MEDICOS_PATH)
@@ -14,55 +18,50 @@ def registrar_medico():
     # Verificar si ya existe el médico
     for elemento in datos_existentes:
         if (
-            elemento["nombre"].lower() == nombre.lower()
-            and elemento["apellido"].lower() == apellido.lower()
-            and elemento["especialidad"].lower() == especialidad.lower()
+            elemento["nombre"].lower() == datos_formulario["nombre"].lower()
+            and elemento["apellido"].lower() == datos_formulario["apellido"].lower()
+            and elemento["especialidad"].lower()
+            == datos_formulario["especialidad"].lower()
         ):
-            print("El médico ya está registrado.")
+            limpiar_consola()
+            print("El médico ya está registrado.\n")
             return
 
-    # Generar un ID automatico
-    nuevo_id = generar_id(datos_existentes)
-
-    # Crear la estructura de datos
-    medico = {
-        "id": nuevo_id,
-        "nombre": nombre,
-        "apellido": apellido,
-        "especialidad": especialidad,
-    }
-
-    # Agregamos la nueva info
-    datos_existentes.append(medico)
+    # Creamos y actualizamos el nuevo registro
+    datos_actualizados = crear_registro(
+        datos_existentes, datos_formulario, MEDICOS_CAMPOS
+    )
 
     # Sobre-escribir el archivo json con los datos actualizados
-    escribir_json(MEDICOS_PATH, datos_existentes)
+    escribir_json(MEDICOS_PATH, datos_actualizados)
+    limpiar_consola()
+    print("Se agrego el registro correctamente.\n")
+    return
 
 
 def listar_medicos():
     datos_existentes = leer_json(MEDICOS_PATH)
 
     if not datos_existentes:
-        print("No hay médicos registrados.")
+        limpiar_consola()
+        print("No hay médicos registrados.\n")
         return
 
+    limpiar_consola()
     print("\nLista de mèdicos...")
 
     for medico in datos_existentes:
         print(
-            f"ID: {medico["id"]} | {medico["nombre"]} {medico["apellido"]} | Especialidad: {medico["especialidad"]}"
+            f"Matricula: {medico["matricula"]} | {medico["nombre"]} {medico["apellido"]} | Especialidad: {medico["especialidad"]}"
         )
     print()
 
 
 def menu_medicos():
-    # Verificar si el archivo existe, si no, crearlo
-    validar_archivo(MEDICOS_PATH)
-
     while True:
         print("Seleccione una opcioon: ")
         print("1. Registrar a un Médico")
-        print("2. Lista de Médicos.")
+        print("2. Listar de Médicos.")
         print("3. Volver al menu anterior.")
         print("4. Salir del programa (directamente).")
 
@@ -76,7 +75,7 @@ def menu_medicos():
                 listar_medicos()
 
             elif opcion == 3:
-                os.system("cls")
+                limpiar_consola()
                 break
 
             elif opcion == 4:
