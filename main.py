@@ -1,8 +1,8 @@
 from modulos.pacientes import menu_pacientes
 from modulos.medicos import menu_medicos
+from modulos.historias import menu_historial_clinico
+from modulos.busquedas import menu_busquedas
 
-# from modulos.historias import menu_historial_clinico
-# from modulos.busquedas import menu_busquedas
 from utils.utilidades import limpiar_consola
 
 # Interfaz de usuario:
@@ -24,8 +24,7 @@ while True:
 
         elif opcion == 2:
             limpiar_consola()
-            pass
-            # menu_historial_clinico()
+            menu_historial_clinico()
 
         elif opcion == 3:
             limpiar_consola()
@@ -34,7 +33,7 @@ while True:
         elif opcion == 4:
             pass
             limpiar_consola()
-            # menu_busquedas()
+            menu_busquedas()
 
         elif opcion == 5:
             print("Cerrando programa...")

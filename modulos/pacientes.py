@@ -10,7 +10,6 @@ from utils.utilidades import (
     eliminar_registro,
     limpiar_consola,
 )
-import os
 
 
 def registrar_paciente():
@@ -21,7 +20,7 @@ def registrar_paciente():
     # Verificamos si el dni no esta registrado
     if existe_dni(datos_existentes, datos_formulario["dni"]):
         limpiar_consola()
-        print(f"El paciente con {datos_formulario['dni']} ya esta registrado...")
+        print(f"El paciente con dni '{datos_formulario['dni']}' ya esta registrado...")
         return
 
     # Creamos el nuevo registro
@@ -45,7 +44,7 @@ def editar_paciente():
     # Verificar si existe el registro
     if not existe_dni(datos_existentes, dni):
         limpiar_consola()
-        print(f"El paciente con {dni} no esta registado...\n")
+        print(f"El paciente con dni '{dni}' no esta registado...\n")
         return
 
     # recuperar el paciente
@@ -101,7 +100,7 @@ def eliminar_paciente():
 
     # Verificar si existe el registro
     if not existe_dni(datos_existentes, dni):
-        print(f"El paciente con {dni} no esta registado...")
+        print(f"El paciente con dni '{dni}' no esta registado...")
         return
 
     # Si existe traemos el registro

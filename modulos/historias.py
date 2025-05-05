@@ -2,7 +2,7 @@ from utils.constantes import (
     HISTORIAS_PATH,
     PACIENTES_PATH,
     MEDICOS_PATH,
-    MEDICOS_CAMPOS,
+    HISTORIAS_CAMPOS,
 )
 from utils.utilidades import (
     existe_dni,
@@ -14,7 +14,7 @@ from utils.utilidades import (
     fecha_actual,
     crear_registro,
     escribir_json,
-    solicitar_datos,
+    obtener_por_id,
 )
 
 
@@ -49,7 +49,7 @@ def agregar_historial_clinico():
     # Verificar si existe el registro
     if not existe_matricula(datos_medicos, matricula_medico):
         limpiar_consola()
-        print(f"El paciente con matricula '{matricula_medico}' no esta registado...\n")
+        print(f"El medico con matricula '{matricula_medico}' no esta registado...\n")
         return
 
     # recuperamos el id del medico
@@ -57,7 +57,7 @@ def agregar_historial_clinico():
     id_medico = medico_encontrado["id"]
 
     # Datos de la historia clinica
-    enfermedad_aficcion = input("Ingresar enfermedad o aficcion que padece: ")
+    enfermedad_afeccion = input("Ingresar enfermedad o afeccion que padece: ")
     observaciones = input("ingresar obersvaciones: ")
     fecha = input("Ingresar fecha en que fue atendido, si es hoy ignorar este campo:")
 
@@ -68,13 +68,15 @@ def agregar_historial_clinico():
     nueva_historia = {
         "id_medico": id_medico,
         "id_paciente": id_paciente,
-        "enfermedad_aficcion": enfermedad_aficcion,
+        "enfermedad_afeccion": enfermedad_afeccion,
         "observaciones": observaciones,
         "fecha": fecha if fecha else fecha_actual(),
     }
 
     # Creamos el nuevo registro
-    datos_actualizados = crear_registro(datos_historias, nueva_historia, MEDICOS_CAMPOS)
+    datos_actualizados = crear_registro(
+        datos_historias, nueva_historia, HISTORIAS_CAMPOS
+    )
 
     # Actualizamos la informacion en el archivo
     escribir_json(HISTORIAS_PATH, datos_actualizados)
@@ -84,16 +86,30 @@ def agregar_historial_clinico():
 
 def listar_historial_clinico():
     datos_existentes = leer_json(HISTORIAS_PATH)
+    datos_pacientes = leer_json(PACIENTES_PATH)
+    datos_medicos = leer_json(MEDICOS_PATH)
 
     if not datos_existentes:
         print("No hay historiales clinicos registrados.")
         return
 
     limpiar_consola()
-    print("\nLista de historiales clinico...")
-    for elemento in datos_existentes:
-        print(elemento)
-    print()
+    print("\nLista de historiales clínicos:")
+
+    for historia in datos_existentes:
+        paciente = obtener_por_id(datos_pacientes, historia["id_paciente"])
+        medico = obtener_por_id(datos_medicos, historia["id_medico"])
+
+        print(
+            f"""
+Fecha: {historia['fecha']}
+Paciente: {paciente['nombre']} {paciente['apellido']} (DNI: {paciente['dni']})
+Médico: {medico['nombre']} {medico['apellido']} (Matrícula: {medico['matricula']})
+Enfermedad o afección: {historia['enfermedad_afeccion']}
+Observaciones: {historia['observaciones']}
+-----------------------------------------
+"""
+        )
 
 
 def menu_historial_clinico():

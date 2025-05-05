@@ -3,6 +3,29 @@ import os
 from datetime import datetime
 
 
+# Pacientes
+def existe_dni(datos, dni):
+    return any(p["dni"] == dni for p in datos)
+
+
+def obtener_por_dni(datos, dni):
+    return next((p for p in datos if p["dni"] == dni), None)
+
+
+# Medicos
+def obtener_por_matricula(datos, matricula):
+    return next((p for p in datos if p["matricula"] == matricula), None)
+
+
+def existe_matricula(datos, matricula):
+    return any(p["matricula"] == matricula for p in datos)
+
+
+# Utilidades
+def obtener_por_id(datos, id):
+    return next((e for e in datos if e["id"] == id), None)
+
+
 def solicitar_datos(campos):
     return {c: input(f"Ingrese {c}: ").strip() for c in campos}
 
@@ -19,22 +42,6 @@ def actualizar_registro(original, nuevos_valores):
 
 def eliminar_registro(datos, registro):
     return [e for e in datos if e != registro]
-
-
-def existe_dni(datos, dni):
-    return any(p["dni"] == dni for p in datos)
-
-
-def obtener_por_dni(datos, dni):
-    return next((p for p in datos if p["dni"] == dni), None)
-
-
-def obtener_por_matricula(datos, matricula):
-    return next((p for p in datos if p["matricula"] == matricula), None)
-
-
-def existe_matricula(datos, matricula):
-    return any(p["matricula"] == matricula for p in datos)
 
 
 def validar_archivo(path):
@@ -67,7 +74,7 @@ def generar_id(datos):
 
 
 def fecha_actual():
-    return datetime.today().strftime("%d/%n/%Y")
+    return datetime.today().strftime("%d/%m/%Y")
 
 
 def calcular_edad(fecha_nacimiento):

@@ -30,5 +30,13 @@
         "dni": "36984345",
         "fecha_nacimiento": "21/05/1991",
         "nacionalidad": "Boliviano"
+    },
+    {
+        "id": 5,
+        "nombre": "Guido",
+        "apellido": "bastiani",
+        "dni": "123456789",
+        "fecha_nacimiento": "21/12/12",
+        "nacionalidad": "Argentina"
     }
 ]

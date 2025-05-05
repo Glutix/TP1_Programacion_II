@@ -3,7 +3,7 @@
         "id": 1,
         "id_medico": 1,
         "id_paciente": 1,
-        "enfermedad_aficcion": "Fiebre",
+        "enfermedad_afeccion": "Fiebre",
         "observaciones": "Registro alto niveles de temperatura corporal",
         "fecha": "29/04/2025"
     },
@@ -11,7 +11,7 @@
         "id": 2,
         "id_medico": 1,
         "id_paciente": 1,
-        "enfermedad_aficcion": "congestion nasal",
+        "enfermedad_afeccion": "congestion nasal",
         "observaciones": "dificultad para respirar",
         "fecha": "21/01/2025"
     },
@@ -19,7 +19,7 @@
         "id": 3,
         "id_medico": 3,
         "id_paciente": 1,
-        "enfermedad_aficcion": "mal de chaga",
+        "enfermedad_afeccion": "mal de chaga",
         "observaciones": "aceleracion de pulso",
         "fecha": "21/01/2024"
     }

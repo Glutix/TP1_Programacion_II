@@ -13,7 +13,7 @@ HISTORIAS_PATH = "data/historias_clinicas.json"
 HISTORIAS_CAMPOS = [
     "id_medico",
     "id_paciente",
-    "enfermedad_afficion",
+    "enfermedad_afeccion",
     "observaciones",
     "fecha",
 ]

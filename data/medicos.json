@@ -12,5 +12,12 @@
         "apellido": "Perez",
         "matricula": "456",
         "especialidad": "Clinico"
+    },
+    {
+        "id": 3,
+        "nombre": "Julian ",
+        "apellido": "Gimenez",
+        "matricula": "456",
+        "especialidad": "Clinico"
     }
 ]
