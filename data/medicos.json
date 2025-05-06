@@ -19,5 +19,89 @@
         "apellido": "Gimenez",
         "matricula": "456",
         "especialidad": "Clinico"
+    },
+    {
+        "id": 4,
+        "nombre": "Lucía",
+        "apellido": "Martínez",
+        "matricula": "789",
+        "especialidad": "Pediatra"
+    },
+    {
+        "id": 5,
+        "nombre": "Carlos",
+        "apellido": "Rodríguez",
+        "matricula": "1011",
+        "especialidad": "Cardiólogo"
+    },
+    {
+        "id": 6,
+        "nombre": "Ana",
+        "apellido": "Fernández",
+        "matricula": "1213",
+        "especialidad": "Dermatóloga"
+    },
+    {
+        "id": 7,
+        "nombre": "Emilia",
+        "apellido": "García",
+        "matricula": "1415",
+        "especialidad": "Endocrinóloga"
+    },
+    {
+        "id": 8,
+        "nombre": "Martín",
+        "apellido": "López",
+        "matricula": "1617",
+        "especialidad": "Neurólogo"
+    },
+    {
+        "id": 9,
+        "nombre": "Valeria",
+        "apellido": "Sosa",
+        "matricula": "1819",
+        "especialidad": "Ginecóloga"
+    },
+    {
+        "id": 10,
+        "nombre": "Pablo",
+        "apellido": "Mendoza",
+        "matricula": "2021",
+        "especialidad": "Traumatólogo"
+    },
+    {
+        "id": 11,
+        "nombre": "Nicolás",
+        "apellido": "Álvarez",
+        "matricula": "2223",
+        "especialidad": "Psiquiatra"
+    },
+    {
+        "id": 12,
+        "nombre": "Daniela",
+        "apellido": "Romero",
+        "matricula": "2425",
+        "especialidad": "Otorrinolaringóloga"
+    },
+    {
+        "id": 13,
+        "nombre": "Tomás",
+        "apellido": "Vega",
+        "matricula": "2627",
+        "especialidad": "Oftalmólogo"
+    },
+    {
+        "id": 14,
+        "nombre": "Rocío",
+        "apellido": "Navarro",
+        "matricula": "2829",
+        "especialidad": "Reumatóloga"
+    },
+    {
+        "id": 15,
+        "nombre": "Federico",
+        "apellido": "Suárez",
+        "matricula": "3031",
+        "especialidad": "Oncólogo"
     }
 ]

@@ -22,5 +22,101 @@
         "enfermedad_afeccion": "mal de chaga",
         "observaciones": "aceleracion de pulso",
         "fecha": "21/01/2024"
+    },
+    {
+        "id": 4,
+        "id_medico": 2,
+        "id_paciente": 2,
+        "enfermedad_afeccion": "Hipertensión",
+        "observaciones": "Presión elevada en controles matutinos",
+        "fecha": "02/05/2025"
+    },
+    {
+        "id": 5,
+        "id_medico": 4,
+        "id_paciente": 5,
+        "enfermedad_afeccion": "Asma",
+        "observaciones": "Uso frecuente de inhalador",
+        "fecha": "18/03/2025"
+    },
+    {
+        "id": 6,
+        "id_medico": 5,
+        "id_paciente": 3,
+        "enfermedad_afeccion": "Arritmia",
+        "observaciones": "Latidos irregulares detectados",
+        "fecha": "11/02/2025"
+    },
+    {
+        "id": 7,
+        "id_medico": 6,
+        "id_paciente": 4,
+        "enfermedad_afeccion": "Dermatitis",
+        "observaciones": "Erupción cutánea extendida en brazos",
+        "fecha": "09/04/2025"
+    },
+    {
+        "id": 8,
+        "id_medico": 7,
+        "id_paciente": 6,
+        "enfermedad_afeccion": "Diabetes tipo 2",
+        "observaciones": "Glucemia en ayunas elevada",
+        "fecha": "25/03/2025"
+    },
+    {
+        "id": 9,
+        "id_medico": 8,
+        "id_paciente": 7,
+        "enfermedad_afeccion": "Migraña crónica",
+        "observaciones": "Dolores de cabeza persistentes",
+        "fecha": "14/01/2025"
+    },
+    {
+        "id": 10,
+        "id_medico": 9,
+        "id_paciente": 8,
+        "enfermedad_afeccion": "Infección urinaria",
+        "observaciones": "Presencia de bacterias en orina",
+        "fecha": "03/05/2025"
+    },
+    {
+        "id": 11,
+        "id_medico": 10,
+        "id_paciente": 9,
+        "enfermedad_afeccion": "Fractura de tibia",
+        "observaciones": "Colocación de yeso, control en 3 semanas",
+        "fecha": "27/04/2025"
+    },
+    {
+        "id": 12,
+        "id_medico": 11,
+        "id_paciente": 10,
+        "enfermedad_afeccion": "Ansiedad generalizada",
+        "observaciones": "Inicio de tratamiento con ansiolíticos",
+        "fecha": "20/04/2025"
+    },
+    {
+        "id": 13,
+        "id_medico": 12,
+        "id_paciente": 11,
+        "enfermedad_afeccion": "Otitis",
+        "observaciones": "Inflamación del oído medio",
+        "fecha": "15/04/2025"
+    },
+    {
+        "id": 14,
+        "id_medico": 13,
+        "id_paciente": 12,
+        "enfermedad_afeccion": "Miopía",
+        "observaciones": "Se recetaron anteojos",
+        "fecha": "10/04/2025"
+    },
+    {
+        "id": 15,
+        "id_medico": 14,
+        "id_paciente": 13,
+        "enfermedad_afeccion": "Artritis reumatoide",
+        "observaciones": "Inflamación en articulaciones pequeñas",
+        "fecha": "05/04/2025"
     }
 ]

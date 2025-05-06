@@ -38,5 +38,85 @@
         "dni": "123456789",
         "fecha_nacimiento": "21/12/12",
         "nacionalidad": "Argentina"
+    },
+    {
+        "id": 6,
+        "nombre": "Luciana",
+        "apellido": "Martínez",
+        "dni": "42019876",
+        "fecha_nacimiento": "15/03/1998",
+        "nacionalidad": "Argentina"
+    },
+    {
+        "id": 7,
+        "nombre": "Fernando",
+        "apellido": "Gómez",
+        "dni": "38765432",
+        "fecha_nacimiento": "02/11/1994",
+        "nacionalidad": "Uruguayo"
+    },
+    {
+        "id": 8,
+        "nombre": "Sofía",
+        "apellido": "López",
+        "dni": "40987654",
+        "fecha_nacimiento": "19/07/1999",
+        "nacionalidad": "Argentina"
+    },
+    {
+        "id": 9,
+        "nombre": "Camilo",
+        "apellido": "Torres",
+        "dni": "37894561",
+        "fecha_nacimiento": "03/09/1995",
+        "nacionalidad": "Colombiano"
+    },
+    {
+        "id": 10,
+        "nombre": "Valentina",
+        "apellido": "Rojas",
+        "dni": "41235678",
+        "fecha_nacimiento": "27/02/2000",
+        "nacionalidad": "Chilena"
+    },
+    {
+        "id": 11,
+        "nombre": "Lautaro",
+        "apellido": "Herrera",
+        "dni": "39543210",
+        "fecha_nacimiento": "06/06/1992",
+        "nacionalidad": "Paraguayo"
+    },
+    {
+        "id": 12,
+        "nombre": "Martina",
+        "apellido": "Acosta",
+        "dni": "38421098",
+        "fecha_nacimiento": "10/10/1993",
+        "nacionalidad": "Argentina"
+    },
+    {
+        "id": 13,
+        "nombre": "Joaquín",
+        "apellido": "Paz",
+        "dni": "37771234",
+        "fecha_nacimiento": "12/05/1990",
+        "nacionalidad": "Uruguayo"
+    },
+    {
+        "id": 14,
+        "nombre": "Bruno",
+        "apellido": "Molina",
+        "dni": "39012345",
+        "fecha_nacimiento": "08/08/1996",
+        "nacionalidad": "Chileno"
+    },
+    {
+        "id": 15,
+        "nombre": "Florencia",
+        "apellido": "Silva",
+        "dni": "40123456",
+        "fecha_nacimiento": "23/04/1997",
+        "nacionalidad": "Argentina"
     }
 ]
