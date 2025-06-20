@@ -16,6 +16,10 @@ from utils.utilidades import (
     escribir_json,
     obtener_por_id,
 )
+"""a
+asddasdsa
+asdas
+sdasda"""
 
 
 def agregar_historial_clinico():

@@ -10,6 +10,15 @@ from utils.utilidades import (
 )
 from datetime import datetime
 
+"""
+ASDASDASDASDASDASDA
+ESTO ES UN
+COMENTARIO
+QUE NO ESTABA
+ANTES
+"""
+
+
 
 def buscar_apellido_nombre():
     datos_pacientes = leer_json(PACIENTES_PATH)
