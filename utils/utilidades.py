@@ -46,16 +46,16 @@ def eliminar_registro(datos, registro):
 
 def validar_archivo(path):
     try:
-        with open(path, "r") as file:
+        with open(path, "r", encoding="utf-8") as file:
             json.load(file)
     except (FileNotFoundError, json.JSONDecodeError):
-        with open(path, "w") as file:
+        with open(path, "w", encoding="utf-8") as file:
             json.dump([], file)
 
 
 def leer_json(path):
     validar_archivo(path)
-    with open(path, "r") as file:
+    with open(path, "r", encoding="utf-8") as file:
         try:
             return json.load(file)
         except json.JSONDecodeError:
@@ -63,8 +63,8 @@ def leer_json(path):
 
 
 def escribir_json(path, datos):
-    with open(path, "w") as file:
-        json.dump(datos, file, indent=4)
+    with open(path, "w", encoding="utf-8") as file:
+        json.dump(datos, file, indent=4, ensure_ascii=False)
 
 
 def generar_id(datos):

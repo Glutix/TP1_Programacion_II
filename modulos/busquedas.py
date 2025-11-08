@@ -7,11 +7,14 @@ from utils.utilidades import (
     existe_dni,
     obtener_por_dni,
     obtener_por_id,
+    existe_matricula,
+    obtener_por_matricula,
 )
 from datetime import datetime
 
 
 def buscar_apellido_nombre():
+    """Busca pacientes por apellido y/o nombre (búsqueda parcial)."""
     datos_pacientes = leer_json(PACIENTES_PATH)
 
     if not datos_pacientes:
@@ -39,26 +42,26 @@ def buscar_apellido_nombre():
 
     if not pacientes_filtrados:
         limpiar_consola()
-        print("No se encontraron pacientes con esos datos...\n")
+        print("No se encontraron pacientes con esos datos.\n")
         return
 
     limpiar_consola()
-    print("Pacientes encontrados:\n")
+    print(f"\n=== PACIENTES ENCONTRADOS ({len(pacientes_filtrados)}) ===\n")
+    
     for paciente in pacientes_filtrados:
         edad = calcular_edad(paciente["fecha_nacimiento"])
-        print(
-            f"""
-ID: {paciente['id']}
-Nombre: {paciente['nombre']} {paciente['apellido']}
-DNI: {paciente['dni']}
-Fecha Nacimiento: {paciente['fecha_nacimiento']}
-Edad: {edad} años
-Nacionalidad: {paciente['nacionalidad']}
--------------------------------------\n"""
-        )
+        print(f"ID: {paciente['id']}")
+        print(f"Nombre: {paciente['nombre']} {paciente['apellido']}")
+        print(f"DNI: {paciente['dni']}")
+        print(f"Fecha Nacimiento: {paciente['fecha_nacimiento']}")
+        print(f"Edad: {edad} años")
+        print(f"Nacionalidad: {paciente['nacionalidad']}")
+        print("-" * 50)
+        print()
 
 
 def buscar_rango_fecha():
+    """Busca historias clínicas de un paciente dentro de un rango de fechas."""
     # Revisar si hay pacientes cargados
     datos_pacientes = leer_json(PACIENTES_PATH)
 
@@ -67,21 +70,22 @@ def buscar_rango_fecha():
         print("No hay pacientes registrados.\n")
         return
 
-    # Solicitar un dato indificativo del cliente
-    dni_paciente = input("Ingresar DNI: ").strip()
+    # Solicitar un dato identificativo del paciente
+    dni_paciente = input("Ingresar DNI del paciente: ").strip()
 
+    # FIX: Agregar datos_pacientes como primer parámetro
     if not existe_dni(datos_pacientes, dni_paciente):
         limpiar_consola()
-        print(f"No se encontro a ningun paciente con dni '{dni_paciente}'\n")
+        print(f"No se encontró ningún paciente con DNI '{dni_paciente}'.\n")
         return
 
-    # recuperar paciente
+    # Recuperar paciente (FIX: Agregar datos_pacientes)
     paciente = obtener_por_dni(datos_pacientes, dni_paciente)
 
-    # recuperar id del paciente
+    # Recuperar id del paciente
     id_paciente = paciente["id"]
 
-    # recuperar datos de las historias clinicas
+    # Recuperar datos de las historias clínicas
     datos_historias = leer_json(HISTORIAS_PATH)
 
     # Primer filtro: solo historias del paciente
@@ -91,13 +95,13 @@ def buscar_rango_fecha():
 
     if not historias_paciente:
         limpiar_consola()
-        print("El paciente no tiene ninguna historia clinica.\n")
+        print("El paciente no tiene ninguna historia clínica registrada.\n")
         return
 
     # Solicitar rango de fecha
-    fecha_inicio_str = input("Ingrese fecha de inicio (DD/MM/AAAA): ").strip()
+    fecha_inicio_str = input("Ingrese fecha de inicio (DD/MM/YYYY): ").strip()
     fecha_final_str = input(
-        "Ingrese fecha final (DD/MM/AAAA) no ingresar nada si quiere usar le fecha actual: "
+        "Ingrese fecha final (DD/MM/YYYY) - Enter para usar fecha actual: "
     ).strip()
 
     if not fecha_final_str:
@@ -109,12 +113,12 @@ def buscar_rango_fecha():
 
         if fecha_final < fecha_inicio:
             limpiar_consola()
-            print("La fecha final no puede ser anterior a la fecha de inicio.")
+            print("Error: La fecha final no puede ser anterior a la fecha de inicio.\n")
             return
 
     except ValueError:
         limpiar_consola()
-        print("Formato de fecha inválido. Use DD/MM/AAAA.")
+        print("Error: Formato de fecha inválido. Use DD/MM/YYYY.\n")
         return
 
     # Segundo filtro: historias dentro del rango de fechas
@@ -129,64 +133,91 @@ def buscar_rango_fecha():
 
     if not historias_en_rango:
         limpiar_consola()
-        print("No se encontro ninguna historia clinica dentro del rango.\n")
+        print("No se encontró ninguna historia clínica dentro del rango especificado.\n")
         return
+
+    # Cargar datos de médicos para mostrar información completa
+    datos_medicos = leer_json(MEDICOS_PATH)
 
     # Mostrar información del paciente
     edad = calcular_edad(paciente["fecha_nacimiento"])
     limpiar_consola()
-    print("\n====== Información del Paciente ======")
+    print("\n" + "=" * 50)
+    print("INFORMACIÓN DEL PACIENTE".center(50))
+    print("=" * 50)
     print(f"ID:               {paciente['id']}")
     print(f"Nombre:           {paciente['nombre']} {paciente['apellido']}")
     print(f"DNI:              {paciente['dni']}")
     print(f"Fecha Nacimiento: {paciente['fecha_nacimiento']}")
     print(f"Edad:             {edad} años")
     print(f"Nacionalidad:     {paciente['nacionalidad']}")
-    print("======================================\n")
+    print("=" * 50 + "\n")
 
-    print("=== Historias Clínicas en el Rango ===")
+    print(f"=== HISTORIAS CLÍNICAS EN EL RANGO ({len(historias_en_rango)}) ===")
+    print(f"Desde: {fecha_inicio_str} | Hasta: {fecha_final_str}\n")
+    
     for indice, h in enumerate(historias_en_rango, 1):
+        medico = obtener_por_id(datos_medicos, h["id_medico"])
+        
         print(f"{indice}. Fecha: {h['fecha']}")
+        if medico:
+            print(f"   Médico: Dr/a. {medico['nombre']} {medico['apellido']} ({medico['especialidad']})")
         print(f"   Afección: {h['enfermedad_afeccion']}")
-        print(f"   Observaciones: {h['observaciones']}\n")
+        print(f"   Observaciones: {h['observaciones']}")
+        print("-" * 50)
+        print()
 
 
 def buscar_nacionalidad():
+    """Busca pacientes por nacionalidad (búsqueda parcial, case-insensitive)."""
     # Revisar si hay pacientes cargados
     pacientes = leer_json(PACIENTES_PATH)
 
     if not pacientes:
-        print("No hay pacientes registrados.")
+        limpiar_consola()
+        print("No hay pacientes registrados.\n")
         return
 
     # Solicitar datos del paciente a buscar
-    nacionalidad = input("Ingresa la nacionalidad del paciente: ").strip().lower()
+    nacionalidad_busqueda = input("Ingrese la nacionalidad del paciente (búsqueda parcial): ").strip()
 
+    if not nacionalidad_busqueda:
+        limpiar_consola()
+        print("Debe ingresar una nacionalidad.\n")
+        return
+
+    # Convertir a minúsculas para búsqueda case-insensitive
+    nacionalidad_busqueda_lower = nacionalidad_busqueda.lower()
+
+    # FIX: Búsqueda parcial y case-insensitive usando 'in'
     pacientes_filtrados = [
-        p for p in pacientes if p["nacionalidad"].lower() == nacionalidad
+        p for p in pacientes 
+        if nacionalidad_busqueda_lower in p["nacionalidad"].lower()
     ]
 
     if not pacientes_filtrados:
         limpiar_consola()
-        print("No se encontro el paciente.\n")
+        print(f"No se encontraron pacientes con nacionalidad que contenga '{nacionalidad_busqueda}'.\n")
         return
 
     limpiar_consola()
+    print(f"\n=== PACIENTES ENCONTRADOS ({len(pacientes_filtrados)}) ===")
+    print(f"Criterio de búsqueda: '{nacionalidad_busqueda}'\n")
+    
     for paciente in pacientes_filtrados:
         edad = calcular_edad(paciente["fecha_nacimiento"])
-        print(
-            f"""
-ID: {paciente['id']}
-Nombre: {paciente['nombre']} {paciente['apellido']}
-DNI: {paciente['dni']}
-Fecha Nacimiento: {paciente['fecha_nacimiento']}
-Edad: {edad} años
-Nacionalidad: {paciente['nacionalidad']}
--------------------------"""
-        )
+        print(f"ID: {paciente['id']}")
+        print(f"Nombre: {paciente['nombre']} {paciente['apellido']}")
+        print(f"DNI: {paciente['dni']}")
+        print(f"Fecha Nacimiento: {paciente['fecha_nacimiento']}")
+        print(f"Edad: {edad} años")
+        print(f"Nacionalidad: {paciente['nacionalidad']}")
+        print("-" * 50)
+        print()
 
 
 def buscar_enfermedad_afeccion():
+    """Busca historias clínicas de un paciente por enfermedad/afección."""
     # Revisar si hay pacientes cargados
     datos_pacientes = leer_json(PACIENTES_PATH)
 
@@ -195,21 +226,22 @@ def buscar_enfermedad_afeccion():
         print("No hay pacientes registrados.\n")
         return
 
-    # Solicitar un dato indificativo del cliente
-    dni_paciente = input("Ingresar DNI: ").strip()
+    # Solicitar un dato identificativo del paciente
+    dni_paciente = input("Ingresar DNI del paciente: ").strip()
 
+    # FIX: Agregar datos_pacientes como primer parámetro
     if not existe_dni(datos_pacientes, dni_paciente):
         limpiar_consola()
-        print(f"No se encontro a ningun paciente con dni '{dni_paciente}'\n")
+        print(f"No se encontró ningún paciente con DNI '{dni_paciente}'.\n")
         return
 
-    # recuperar paciente
+    # Recuperar paciente (FIX: Agregar datos_pacientes)
     paciente = obtener_por_dni(datos_pacientes, dni_paciente)
 
-    # recuperar id del paciente
+    # Recuperar id del paciente
     id_paciente = paciente["id"]
 
-    # recuperar datos de las historias clinicas
+    # Recuperar datos de las historias clínicas
     datos_historias = leer_json(HISTORIAS_PATH)
 
     # Primer filtro: solo historias del paciente
@@ -219,18 +251,18 @@ def buscar_enfermedad_afeccion():
 
     if not historias_paciente:
         limpiar_consola()
-        print("El paciente no tiene ninguna historia clinica.\n")
+        print("El paciente no tiene ninguna historia clínica registrada.\n")
         return
 
-    # Solicitar rango de fecha
-    enfermedad_afeccion = input("Ingrese enfermedad/afección: ").strip().lower()
+    # Solicitar enfermedad/afección
+    enfermedad_afeccion = input("Ingrese enfermedad/afección a buscar: ").strip().lower()
 
     if not enfermedad_afeccion:
         limpiar_consola()
-        print("No se ingreso ninguna enfermedad o afeccion.\n")
+        print("No se ingresó ninguna enfermedad o afección.\n")
         return
 
-    # filtro
+    # Filtro por enfermedad/afección (búsqueda parcial)
     historias_enfermedad_afeccion = list(
         filter(
             lambda h: enfermedad_afeccion in h["enfermedad_afeccion"].lower(),
@@ -241,30 +273,44 @@ def buscar_enfermedad_afeccion():
     if not historias_enfermedad_afeccion:
         limpiar_consola()
         print(
-            "No se encontro ninguna historia clinica con los criterios establecidos.\n"
+            f"No se encontró ninguna historia clínica con '{enfermedad_afeccion}' para este paciente.\n"
         )
         return
+
+    # Cargar datos de médicos
+    datos_medicos = leer_json(MEDICOS_PATH)
 
     # Mostrar información del paciente
     edad = calcular_edad(paciente["fecha_nacimiento"])
     limpiar_consola()
-    print("\n====== Información del Paciente ======")
+    print("\n" + "=" * 50)
+    print("INFORMACIÓN DEL PACIENTE".center(50))
+    print("=" * 50)
     print(f"ID:               {paciente['id']}")
     print(f"Nombre:           {paciente['nombre']} {paciente['apellido']}")
     print(f"DNI:              {paciente['dni']}")
     print(f"Fecha Nacimiento: {paciente['fecha_nacimiento']}")
     print(f"Edad:             {edad} años")
     print(f"Nacionalidad:     {paciente['nacionalidad']}")
-    print("======================================\n")
+    print("=" * 50 + "\n")
 
-    print("=== Historias Clínicas segun su enfermedad/afeccion ===")
+    print(f"=== HISTORIAS CLÍNICAS POR ENFERMEDAD/AFECCIÓN ({len(historias_enfermedad_afeccion)}) ===")
+    print(f"Criterio de búsqueda: '{enfermedad_afeccion}'\n")
+    
     for indice, h in enumerate(historias_enfermedad_afeccion, 1):
+        medico = obtener_por_id(datos_medicos, h["id_medico"])
+        
         print(f"{indice}. Fecha: {h['fecha']}")
+        if medico:
+            print(f"   Médico: Dr/a. {medico['nombre']} {medico['apellido']} ({medico['especialidad']})")
         print(f"   Afección: {h['enfermedad_afeccion']}")
-        print(f"   Observaciones: {h['observaciones']}\n")
+        print(f"   Observaciones: {h['observaciones']}")
+        print("-" * 50)
+        print()
 
 
 def buscar_medico_trato():
+    """Busca las atenciones que realizó un médico a un paciente específico."""
     datos_pacientes = leer_json(PACIENTES_PATH)
     datos_historias = leer_json(HISTORIAS_PATH)
     datos_medicos = leer_json(MEDICOS_PATH)
@@ -272,7 +318,7 @@ def buscar_medico_trato():
     if not datos_pacientes or not datos_historias or not datos_medicos:
         limpiar_consola()
         print(
-            "Faltan datos: no hay pacientes, médicos o historias clínicas registradas.\n"
+            "Error: Faltan datos. Asegúrese de tener pacientes, médicos e historias clínicas registradas.\n"
         )
         return
 
@@ -283,6 +329,7 @@ def buscar_medico_trato():
         print(f"No se encontró ningún paciente con DNI '{dni}'.\n")
         return
 
+    # FIX: Agregar datos_pacientes como parámetro
     paciente = obtener_por_dni(datos_pacientes, dni)
     id_paciente = paciente["id"]
 
@@ -299,58 +346,146 @@ def buscar_medico_trato():
 
     limpiar_consola()
     print(
-        f"=== Atenciones para {paciente['nombre']} {paciente['apellido']} (DNI {dni}) ===\n"
+        f"\n=== ATENCIONES MÉDICAS DE {paciente['nombre'].upper()} {paciente['apellido'].upper()} ===\n"
     )
+    print(f"DNI: {dni}")
+    print(f"Total de atenciones: {len(historias_paciente)}\n")
+    print("-" * 60 + "\n")
 
     for i, h in enumerate(historias_paciente, 1):
         medico = obtener_por_id(datos_medicos, h["id_medico"])
         if medico:
             print(f"{i}. Fecha: {h['fecha']}")
-            print(
-                f"   Médico: Dr. {medico['nombre']} {medico['apellido']} (Matrícula {medico['matricula']})"
-            )
+            print(f"   Médico: Dr/a. {medico['nombre']} {medico['apellido']}")
+            print(f"   Matrícula: {medico['matricula']}")
             print(f"   Especialidad: {medico['especialidad']}")
             print(f"   Enfermedad/Afección: {h['enfermedad_afeccion']}")
-            print(f"   Observaciones: {h['observaciones']}\n")
+            print(f"   Observaciones: {h['observaciones']}")
+            print("-" * 60)
+            print()
+        else:
+            print(f"{i}. Fecha: {h['fecha']}")
+            print(f"   [ERROR] Médico no encontrado (ID: {h['id_medico']})")
+            print(f"   Enfermedad/Afección: {h['enfermedad_afeccion']}")
+            print("-" * 60)
+            print()
+
+
+def buscar_pacientes_por_medico():
+    """NUEVA FUNCIÓN: Busca todos los pacientes atendidos por un médico específico."""
+    datos_pacientes = leer_json(PACIENTES_PATH)
+    datos_historias = leer_json(HISTORIAS_PATH)
+    datos_medicos = leer_json(MEDICOS_PATH)
+
+    if not datos_pacientes or not datos_historias or not datos_medicos:
+        limpiar_consola()
+        print(
+            "Error: Faltan datos. Asegúrese de tener pacientes, médicos e historias clínicas registradas.\n"
+        )
+        return
+
+    matricula = input("Ingrese la matrícula del médico: ").strip()
+
+    if not existe_matricula(datos_medicos, matricula):
+        limpiar_consola()
+        print(f"No se encontró ningún médico con matrícula '{matricula}'.\n")
+        return
+
+    medico = obtener_por_matricula(datos_medicos, matricula)
+    id_medico = medico["id"]
+
+    # Filtrar historias del médico
+    historias_medico = list(
+        filter(lambda h: h["id_medico"] == id_medico, datos_historias)
+    )
+
+    if not historias_medico:
+        limpiar_consola()
+        print(
+            f"El médico {medico['nombre']} {medico['apellido']} no tiene atenciones registradas.\n"
+        )
+        return
+
+    # Obtener pacientes únicos
+    ids_pacientes = list(set([h["id_paciente"] for h in historias_medico]))
+    
+    limpiar_consola()
+    print(f"\n=== PACIENTES ATENDIDOS POR DR/A. {medico['nombre'].upper()} {medico['apellido'].upper()} ===\n")
+    print(f"Matrícula: {medico['matricula']}")
+    print(f"Especialidad: {medico['especialidad']}")
+    print(f"Total de pacientes atendidos: {len(ids_pacientes)}")
+    print(f"Total de atenciones: {len(historias_medico)}\n")
+    print("-" * 60 + "\n")
+
+    for id_pac in ids_pacientes:
+        paciente = obtener_por_id(datos_pacientes, id_pac)
+        if not paciente:
+            continue
+        
+        # Contar atenciones a este paciente
+        atenciones_paciente = [h for h in historias_medico if h["id_paciente"] == id_pac]
+        
+        print(f"• Paciente: {paciente['nombre']} {paciente['apellido']}")
+        print(f"  DNI: {paciente['dni']}")
+        print(f"  Atenciones: {len(atenciones_paciente)}")
+        print(f"  Última atención: {atenciones_paciente[-1]['fecha']}")
+        print()
 
 
 def menu_busquedas():
+    """Menú principal del módulo de búsquedas."""
     while True:
+        print("=== MÓDULO DE BÚSQUEDAS ===")
         print("Buscar Pacientes por:")
-        print("1. Apellido y/o Nombre.")
-        print("2. Rango de fechas en la que fueron atendidos.")
-        print("3. Enfermedad/afección.")
-        print("4. Por Médico que lo/la trató.")
+        print("1. Apellido y/o Nombre")
+        print("2. Rango de fechas (historias clínicas)")
+        print("3. Enfermedad/Afección")
+        print("4. Atenciones de un paciente (por médico)")
         print("5. Nacionalidad")
-        print("6. Volver al menu anterior.")
-        print("7. Salir del programa (directamente).")
+        print("6. Pacientes atendidos por un médico")
+        print("7. Volver al menú anterior")
+        print("8. Salir del programa\n")
 
         try:
             opcion = int(input("Ingrese una opción: "))
 
             if opcion == 1:
+                limpiar_consola()
                 buscar_apellido_nombre()
 
             elif opcion == 2:
+                limpiar_consola()
                 buscar_rango_fecha()
 
             elif opcion == 3:
+                limpiar_consola()
                 buscar_enfermedad_afeccion()
 
             elif opcion == 4:
+                limpiar_consola()
                 buscar_medico_trato()
 
             elif opcion == 5:
+                limpiar_consola()
                 buscar_nacionalidad()
 
             elif opcion == 6:
                 limpiar_consola()
-                break
+                buscar_pacientes_por_medico()
 
             elif opcion == 7:
+                limpiar_consola()
+                break
+
+            elif opcion == 8:
                 print("Cerrando el programa...")
                 exit()
 
+            else:
+                limpiar_consola()
+                print("Opción no válida. Por favor, seleccione una opción entre 1 y 8.\n")
+
         except ValueError:
-            print("No se ingresó un número válido.")
+            limpiar_consola()
+            print("Error: No se ingresó un número válido.\n")
             continue

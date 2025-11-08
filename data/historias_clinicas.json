@@ -4,119 +4,239 @@
         "id_medico": 1,
         "id_paciente": 1,
         "enfermedad_afeccion": "Fiebre",
-        "observaciones": "Registro alto niveles de temperatura corporal",
-        "fecha": "29/04/2025"
+        "observaciones": "Altos niveles de fiebre",
+        "fecha": "2025-11-08"
     },
     {
         "id": 2,
-        "id_medico": 1,
-        "id_paciente": 1,
-        "enfermedad_afeccion": "congestion nasal",
-        "observaciones": "dificultad para respirar",
-        "fecha": "21/01/2025"
+        "id_medico": 3,
+        "id_paciente": 2,
+        "enfermedad_afeccion": "Hipertensión",
+        "observaciones": "Presión arterial elevada",
+        "fecha": "2025-11-06"
     },
     {
         "id": 3,
-        "id_medico": 3,
-        "id_paciente": 1,
-        "enfermedad_afeccion": "mal de chaga",
-        "observaciones": "aceleracion de pulso",
-        "fecha": "21/01/2024"
+        "id_medico": 5,
+        "id_paciente": 3,
+        "enfermedad_afeccion": "Migraña",
+        "observaciones": "Dolores de cabeza recurrentes",
+        "fecha": "2025-10-30"
     },
     {
         "id": 4,
-        "id_medico": 2,
-        "id_paciente": 2,
-        "enfermedad_afeccion": "Hipertensión",
-        "observaciones": "Presión elevada en controles matutinos",
-        "fecha": "02/05/2025"
+        "id_medico": 7,
+        "id_paciente": 4,
+        "enfermedad_afeccion": "Fractura de brazo",
+        "observaciones": "Reposo y yeso durante 45 días",
+        "fecha": "2025-09-22"
     },
     {
         "id": 5,
-        "id_medico": 4,
+        "id_medico": 9,
         "id_paciente": 5,
-        "enfermedad_afeccion": "Asma",
-        "observaciones": "Uso frecuente de inhalador",
-        "fecha": "18/03/2025"
+        "enfermedad_afeccion": "Otitis",
+        "observaciones": "Inflamación leve del oído",
+        "fecha": "2025-10-02"
     },
     {
         "id": 6,
-        "id_medico": 5,
-        "id_paciente": 3,
-        "enfermedad_afeccion": "Arritmia",
-        "observaciones": "Latidos irregulares detectados",
-        "fecha": "11/02/2025"
+        "id_medico": 2,
+        "id_paciente": 6,
+        "enfermedad_afeccion": "Resfrío común",
+        "observaciones": "Tratamiento sintomático",
+        "fecha": "2025-08-15"
     },
     {
         "id": 7,
-        "id_medico": 6,
-        "id_paciente": 4,
-        "enfermedad_afeccion": "Dermatitis",
-        "observaciones": "Erupción cutánea extendida en brazos",
-        "fecha": "09/04/2025"
+        "id_medico": 12,
+        "id_paciente": 7,
+        "enfermedad_afeccion": "Diabetes tipo II",
+        "observaciones": "Control mensual de glucemia",
+        "fecha": "2025-07-19"
     },
     {
         "id": 8,
-        "id_medico": 7,
-        "id_paciente": 6,
-        "enfermedad_afeccion": "Diabetes tipo 2",
-        "observaciones": "Glucemia en ayunas elevada",
-        "fecha": "25/03/2025"
+        "id_medico": 15,
+        "id_paciente": 8,
+        "enfermedad_afeccion": "Asma",
+        "observaciones": "Uso de inhalador diario",
+        "fecha": "2025-06-10"
     },
     {
         "id": 9,
-        "id_medico": 8,
-        "id_paciente": 7,
-        "enfermedad_afeccion": "Migraña crónica",
-        "observaciones": "Dolores de cabeza persistentes",
-        "fecha": "14/01/2025"
+        "id_medico": 4,
+        "id_paciente": 9,
+        "enfermedad_afeccion": "Alergia cutánea",
+        "observaciones": "Se prescribe antihistamínico",
+        "fecha": "2025-05-21"
     },
     {
         "id": 10,
-        "id_medico": 9,
-        "id_paciente": 8,
-        "enfermedad_afeccion": "Infección urinaria",
-        "observaciones": "Presencia de bacterias en orina",
-        "fecha": "03/05/2025"
+        "id_medico": 6,
+        "id_paciente": 10,
+        "enfermedad_afeccion": "Dolor abdominal",
+        "observaciones": "Posible gastritis",
+        "fecha": "2025-04-14"
     },
     {
         "id": 11,
-        "id_medico": 10,
-        "id_paciente": 9,
-        "enfermedad_afeccion": "Fractura de tibia",
-        "observaciones": "Colocación de yeso, control en 3 semanas",
-        "fecha": "27/04/2025"
+        "id_medico": 17,
+        "id_paciente": 11,
+        "enfermedad_afeccion": "Gripe",
+        "observaciones": "Reposo y paracetamol",
+        "fecha": "2025-03-18"
     },
     {
         "id": 12,
-        "id_medico": 11,
-        "id_paciente": 10,
-        "enfermedad_afeccion": "Ansiedad generalizada",
-        "observaciones": "Inicio de tratamiento con ansiolíticos",
-        "fecha": "20/04/2025"
+        "id_medico": 8,
+        "id_paciente": 12,
+        "enfermedad_afeccion": "Embarazo",
+        "observaciones": "Controles mensuales",
+        "fecha": "2025-02-22"
     },
     {
         "id": 13,
-        "id_medico": 12,
-        "id_paciente": 11,
-        "enfermedad_afeccion": "Otitis",
-        "observaciones": "Inflamación del oído medio",
-        "fecha": "15/04/2025"
+        "id_medico": 18,
+        "id_paciente": 13,
+        "enfermedad_afeccion": "Arritmia",
+        "observaciones": "Derivado a cardiología",
+        "fecha": "2025-02-10"
     },
     {
         "id": 14,
-        "id_medico": 13,
-        "id_paciente": 12,
+        "id_medico": 10,
+        "id_paciente": 14,
         "enfermedad_afeccion": "Miopía",
-        "observaciones": "Se recetaron anteojos",
-        "fecha": "10/04/2025"
+        "observaciones": "Necesita lentes correctivos",
+        "fecha": "2025-01-28"
     },
     {
         "id": 15,
+        "id_medico": 13,
+        "id_paciente": 15,
+        "enfermedad_afeccion": "Gastritis",
+        "observaciones": "Dieta blanda y medicación",
+        "fecha": "2025-01-12"
+    },
+    {
+        "id": 16,
+        "id_medico": 19,
+        "id_paciente": 16,
+        "enfermedad_afeccion": "Infección urinaria",
+        "observaciones": "Antibióticos por 7 días",
+        "fecha": "2024-12-09"
+    },
+    {
+        "id": 17,
+        "id_medico": 20,
+        "id_paciente": 17,
+        "enfermedad_afeccion": "Bronquitis",
+        "observaciones": "Tratamiento con jarabe y vapor",
+        "fecha": "2024-11-11"
+    },
+    {
+        "id": 18,
+        "id_medico": 21,
+        "id_paciente": 18,
+        "enfermedad_afeccion": "Psoriasis",
+        "observaciones": "Tratamiento tópico",
+        "fecha": "2024-10-23"
+    },
+    {
+        "id": 19,
+        "id_medico": 22,
+        "id_paciente": 19,
+        "enfermedad_afeccion": "Faringitis",
+        "observaciones": "Antibióticos recetados",
+        "fecha": "2024-09-15"
+    },
+    {
+        "id": 20,
+        "id_medico": 23,
+        "id_paciente": 20,
+        "enfermedad_afeccion": "Colesterol alto",
+        "observaciones": "Control alimenticio",
+        "fecha": "2024-09-02"
+    },
+    {
+        "id": 21,
+        "id_medico": 24,
+        "id_paciente": 21,
+        "enfermedad_afeccion": "Luxación de hombro",
+        "observaciones": "Fisioterapia semanal",
+        "fecha": "2024-08-12"
+    },
+    {
+        "id": 22,
+        "id_medico": 25,
+        "id_paciente": 22,
+        "enfermedad_afeccion": "Hipotensión",
+        "observaciones": "Dieta rica en sodio",
+        "fecha": "2024-07-19"
+    },
+    {
+        "id": 23,
+        "id_medico": 26,
+        "id_paciente": 23,
+        "enfermedad_afeccion": "Ansiedad",
+        "observaciones": "Sesiones semanales",
+        "fecha": "2024-06-21"
+    },
+    {
+        "id": 24,
+        "id_medico": 27,
+        "id_paciente": 24,
+        "enfermedad_afeccion": "Tiroides",
+        "observaciones": "Control trimestral",
+        "fecha": "2024-05-05"
+    },
+    {
+        "id": 25,
+        "id_medico": 28,
+        "id_paciente": 25,
+        "enfermedad_afeccion": "Resfrío común",
+        "observaciones": "Paracetamol y líquidos",
+        "fecha": "2024-04-19"
+    },
+    {
+        "id": 26,
+        "id_medico": 29,
+        "id_paciente": 26,
+        "enfermedad_afeccion": "Úlcera gástrica",
+        "observaciones": "Tratamiento de 30 días",
+        "fecha": "2024-03-30"
+    },
+    {
+        "id": 27,
+        "id_medico": 30,
+        "id_paciente": 27,
+        "enfermedad_afeccion": "Dolor lumbar",
+        "observaciones": "Ejercicios posturales",
+        "fecha": "2024-03-05"
+    },
+    {
+        "id": 28,
+        "id_medico": 11,
+        "id_paciente": 28,
+        "enfermedad_afeccion": "Depresión leve",
+        "observaciones": "Seguimiento psicológico",
+        "fecha": "2024-02-01"
+    },
+    {
+        "id": 29,
+        "id_medico": 16,
+        "id_paciente": 29,
+        "enfermedad_afeccion": "Varicela",
+        "observaciones": "Control domiciliario",
+        "fecha": "2024-01-12"
+    },
+    {
+        "id": 30,
         "id_medico": 14,
-        "id_paciente": 13,
-        "enfermedad_afeccion": "Artritis reumatoide",
-        "observaciones": "Inflamación en articulaciones pequeñas",
-        "fecha": "05/04/2025"
+        "id_paciente": 30,
+        "enfermedad_afeccion": "Artritis",
+        "observaciones": "Medicamentos antiinflamatorios",
+        "fecha": "2023-12-18"
     }
 ]

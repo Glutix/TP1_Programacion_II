@@ -1,122 +1,242 @@
 [
     {
         "id": 1,
-        "nombre": "Glutix",
+        "nombre": "Ricardo",
         "apellido": "Ferreyra",
         "dni": "40034493",
-        "fecha_nacimiento": "21/01/1997",
+        "fecha_nacimiento": "1997-01-21",
         "nacionalidad": "Argentino"
     },
     {
         "id": 2,
-        "nombre": "Alejandro",
-        "apellido": "Vargas",
-        "dni": "39847573",
-        "fecha_nacimiento": "21/04/1996",
-        "nacionalidad": "Peruano"
-    },
-    {
-        "id": 3,
-        "nombre": "Alexis",
-        "apellido": "Ramon",
-        "dni": "36111111",
-        "fecha_nacimiento": "25/12/1996",
-        "nacionalidad": "Chileno"
-    },
-    {
-        "id": 4,
-        "nombre": "Mario",
-        "apellido": "Gimenez",
-        "dni": "36984345",
-        "fecha_nacimiento": "21/05/1991",
-        "nacionalidad": "Boliviano"
-    },
-    {
-        "id": 5,
-        "nombre": "Guido",
-        "apellido": "bastiani",
-        "dni": "123456789",
-        "fecha_nacimiento": "21/12/12",
+        "nombre": "María",
+        "apellido": "López",
+        "dni": "38922111",
+        "fecha_nacimiento": "1989-05-12",
         "nacionalidad": "Argentina"
     },
     {
+        "id": 3,
+        "nombre": "Santiago",
+        "apellido": "Pérez",
+        "dni": "41200988",
+        "fecha_nacimiento": "1999-09-08",
+        "nacionalidad": "Argentino"
+    },
+    {
+        "id": 4,
+        "nombre": "Lucía",
+        "apellido": "Gómez",
+        "dni": "37455661",
+        "fecha_nacimiento": "1987-03-22",
+        "nacionalidad": "Argentina"
+    },
+    {
+        "id": 5,
+        "nombre": "Matías",
+        "apellido": "Suárez",
+        "dni": "40599122",
+        "fecha_nacimiento": "1995-11-10",
+        "nacionalidad": "Argentino"
+    },
+    {
         "id": 6,
-        "nombre": "Luciana",
-        "apellido": "Martínez",
-        "dni": "42019876",
-        "fecha_nacimiento": "15/03/1998",
+        "nombre": "Carla",
+        "apellido": "Domínguez",
+        "dni": "38222777",
+        "fecha_nacimiento": "1990-12-01",
         "nacionalidad": "Argentina"
     },
     {
         "id": 7,
-        "nombre": "Fernando",
-        "apellido": "Gómez",
-        "dni": "38765432",
-        "fecha_nacimiento": "02/11/1994",
-        "nacionalidad": "Uruguayo"
+        "nombre": "Julián",
+        "apellido": "Sosa",
+        "dni": "42890013",
+        "fecha_nacimiento": "2000-07-05",
+        "nacionalidad": "Argentino"
     },
     {
         "id": 8,
-        "nombre": "Sofía",
-        "apellido": "López",
-        "dni": "40987654",
-        "fecha_nacimiento": "19/07/1999",
+        "nombre": "Romina",
+        "apellido": "Benítez",
+        "dni": "39871234",
+        "fecha_nacimiento": "1993-04-19",
         "nacionalidad": "Argentina"
     },
     {
         "id": 9,
-        "nombre": "Camilo",
-        "apellido": "Torres",
-        "dni": "37894561",
-        "fecha_nacimiento": "03/09/1995",
-        "nacionalidad": "Colombiano"
+        "nombre": "Lucas",
+        "apellido": "Rivas",
+        "dni": "41882233",
+        "fecha_nacimiento": "1998-10-28",
+        "nacionalidad": "Argentino"
     },
     {
         "id": 10,
-        "nombre": "Valentina",
-        "apellido": "Rojas",
-        "dni": "41235678",
-        "fecha_nacimiento": "27/02/2000",
-        "nacionalidad": "Chilena"
+        "nombre": "Natalia",
+        "apellido": "Campos",
+        "dni": "37711456",
+        "fecha_nacimiento": "1988-06-15",
+        "nacionalidad": "Argentina"
     },
     {
         "id": 11,
-        "nombre": "Lautaro",
-        "apellido": "Herrera",
-        "dni": "39543210",
-        "fecha_nacimiento": "06/06/1992",
-        "nacionalidad": "Paraguayo"
+        "nombre": "Agustina",
+        "apellido": "Martínez",
+        "dni": "42234771",
+        "fecha_nacimiento": "2001-08-11",
+        "nacionalidad": "Argentina"
     },
     {
         "id": 12,
-        "nombre": "Martina",
-        "apellido": "Acosta",
-        "dni": "38421098",
-        "fecha_nacimiento": "10/10/1993",
-        "nacionalidad": "Argentina"
+        "nombre": "Franco",
+        "apellido": "Moreno",
+        "dni": "39500332",
+        "fecha_nacimiento": "1994-02-09",
+        "nacionalidad": "Argentino"
     },
     {
         "id": 13,
-        "nombre": "Joaquín",
-        "apellido": "Paz",
-        "dni": "37771234",
-        "fecha_nacimiento": "12/05/1990",
-        "nacionalidad": "Uruguayo"
+        "nombre": "Valentina",
+        "apellido": "Reyes",
+        "dni": "38677442",
+        "fecha_nacimiento": "1991-01-05",
+        "nacionalidad": "Argentina"
     },
     {
         "id": 14,
-        "nombre": "Bruno",
-        "apellido": "Molina",
-        "dni": "39012345",
-        "fecha_nacimiento": "08/08/1996",
-        "nacionalidad": "Chileno"
+        "nombre": "Tomás",
+        "apellido": "Acosta",
+        "dni": "43099822",
+        "fecha_nacimiento": "2003-05-25",
+        "nacionalidad": "Argentino"
     },
     {
         "id": 15,
-        "nombre": "Florencia",
-        "apellido": "Silva",
-        "dni": "40123456",
-        "fecha_nacimiento": "23/04/1997",
+        "nombre": "Camila",
+        "apellido": "Fernández",
+        "dni": "39218871",
+        "fecha_nacimiento": "1992-09-30",
         "nacionalidad": "Argentina"
+    },
+    {
+        "id": 16,
+        "nombre": "Federico",
+        "apellido": "Roldán",
+        "dni": "40192255",
+        "fecha_nacimiento": "1996-04-14",
+        "nacionalidad": "Argentino"
+    },
+    {
+        "id": 17,
+        "nombre": "Sofía",
+        "apellido": "Correa",
+        "dni": "37991122",
+        "fecha_nacimiento": "1989-07-17",
+        "nacionalidad": "Argentina"
+    },
+    {
+        "id": 18,
+        "nombre": "Martín",
+        "apellido": "Quiroga",
+        "dni": "41882255",
+        "fecha_nacimiento": "2000-03-01",
+        "nacionalidad": "Argentino"
+    },
+    {
+        "id": 19,
+        "nombre": "Florencia",
+        "apellido": "Salas",
+        "dni": "39661122",
+        "fecha_nacimiento": "1993-11-03",
+        "nacionalidad": "Argentina"
+    },
+    {
+        "id": 20,
+        "nombre": "Ignacio",
+        "apellido": "Torres",
+        "dni": "42119944",
+        "fecha_nacimiento": "2002-02-28",
+        "nacionalidad": "Argentino"
+    },
+    {
+        "id": 21,
+        "nombre": "Carolina",
+        "apellido": "Arias",
+        "dni": "38651229",
+        "fecha_nacimiento": "1990-12-19",
+        "nacionalidad": "Argentina"
+    },
+    {
+        "id": 22,
+        "nombre": "Emiliano",
+        "apellido": "Ponce",
+        "dni": "39988761",
+        "fecha_nacimiento": "1994-06-09",
+        "nacionalidad": "Argentino"
+    },
+    {
+        "id": 23,
+        "nombre": "Julieta",
+        "apellido": "Vega",
+        "dni": "40555321",
+        "fecha_nacimiento": "1997-03-04",
+        "nacionalidad": "Argentina"
+    },
+    {
+        "id": 24,
+        "nombre": "Leandro",
+        "apellido": "Campos",
+        "dni": "37884451",
+        "fecha_nacimiento": "1988-09-15",
+        "nacionalidad": "Argentino"
+    },
+    {
+        "id": 25,
+        "nombre": "Micaela",
+        "apellido": "Herrera",
+        "dni": "41335544",
+        "fecha_nacimiento": "2001-10-02",
+        "nacionalidad": "Argentina"
+    },
+    {
+        "id": 26,
+        "nombre": "Pablo",
+        "apellido": "Serrano",
+        "dni": "38451222",
+        "fecha_nacimiento": "1990-05-11",
+        "nacionalidad": "Argentino"
+    },
+    {
+        "id": 27,
+        "nombre": "Rocío",
+        "apellido": "Mendoza",
+        "dni": "41991166",
+        "fecha_nacimiento": "1998-12-22",
+        "nacionalidad": "Argentina"
+    },
+    {
+        "id": 28,
+        "nombre": "Andrés",
+        "apellido": "Funes",
+        "dni": "40487712",
+        "fecha_nacimiento": "1996-08-07",
+        "nacionalidad": "Argentino"
+    },
+    {
+        "id": 29,
+        "nombre": "Melina",
+        "apellido": "Silva",
+        "dni": "39388741",
+        "fecha_nacimiento": "1993-01-13",
+        "nacionalidad": "Argentina"
+    },
+    {
+        "id": 30,
+        "nombre": "Bruno",
+        "apellido": "Navarro",
+        "dni": "41100255",
+        "fecha_nacimiento": "1999-07-25",
+        "nacionalidad": "Argentino"
     }
 ]

@@ -2,7 +2,6 @@ from modulos.pacientes import menu_pacientes
 from modulos.medicos import menu_medicos
 from modulos.historias import menu_historial_clinico
 from modulos.busquedas import menu_busquedas
-
 from utils.utilidades import limpiar_consola
 
 # Interfaz de usuario:
