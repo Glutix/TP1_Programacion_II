@@ -6,17 +6,19 @@ from utils.utilidades import limpiar_consola
 
 # Interfaz de usuario:
 while True:
-    print("Sistema de Gestión - 'Instituto Médico Las Luciérnagas'")
-    print("1. Gestionar Pacientes.")
-    print("2. Gestionar Historias Clinícas.")
-    print("3. Gestionar Médicos.")
-    print("4. Gestionar Busquedas.")
-    print("5. Salir.\n")
+    print("=" * 60)
+    print("Sistema de Gestión - 'Instituto Médico Las Luciérnagas'".center(60))
+    print("=" * 60)
+    print("1. Gestionar Pacientes")
+    print("2. Gestionar Historias Clínicas")
+    print("3. Gestionar Médicos")
+    print("4. Gestionar Búsquedas")
+    print("5. Salir\n")
 
     try:
-        opcion = int(input("Seleccione una opcion: "))
+        opcion = int(input("Seleccione una opción: "))
 
-        # Menu de opciones
+        # Menú de opciones
         if opcion == 1:
             limpiar_consola()
             menu_pacientes()
@@ -30,19 +32,28 @@ while True:
             menu_medicos()
 
         elif opcion == 4:
-            pass
             limpiar_consola()
             menu_busquedas()
 
         elif opcion == 5:
-            print("Cerrando programa...")
+            print("\nCerrando programa...")
+            print("¡Hasta luego!")
             break
 
         else:
             limpiar_consola()
-            print("Opción no válida. Por favor, seleccione una opción entre (1 y 5).\n")
+            print("Opción no válida. Por favor, seleccione una opción entre 1 y 5.\n")
             continue
+
     except ValueError:
         limpiar_consola()
-        print("Opción no válida. Por favor, ingrese un número entre (1 y 5).\n")
+        print("Error: Opción no válida. Por favor, ingrese un número entre 1 y 5.\n")
+        continue
+    except KeyboardInterrupt:
+        print("\n\nPrograma interrumpido por el usuario.")
+        print("¡Hasta luego!")
+        break
+    except Exception as e:
+        limpiar_consola()
+        print(f"Error inesperado: {e}\n")
         continue

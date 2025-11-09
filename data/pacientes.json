@@ -238,5 +238,13 @@
         "dni": "41100255",
         "fecha_nacimiento": "1999-07-25",
         "nacionalidad": "Argentino"
+    },
+    {
+        "id": 31,
+        "nombre": "Juan",
+        "apellido": "Pulido",
+        "dni": "40033333",
+        "fecha_nacimiento": "21/01/1995",
+        "nacionalidad": "Argentino"
     }
 ]

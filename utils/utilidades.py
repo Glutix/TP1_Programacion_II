@@ -78,7 +78,17 @@ def fecha_actual():
 
 
 def calcular_edad(fecha_nacimiento):
-    nacimiento = datetime.strptime(fecha_nacimiento, "%d/%m/%Y")
+    # Intentar con formato YYYY-MM-DD primero
+    try:
+        nacimiento = datetime.strptime(fecha_nacimiento, "%Y-%m-%d")
+    except ValueError:
+        # Si falla, intentar con formato DD/MM/YYYY
+        try:
+            nacimiento = datetime.strptime(fecha_nacimiento, "%d/%m/%Y")
+        except ValueError:
+            # Si ambos fallan, retornar "N/A"
+            return "N/A"
+
     hoy = datetime.today()
     edad = hoy.year - nacimiento.year
     if (hoy.month, hoy.day) < (nacimiento.month, nacimiento.day):

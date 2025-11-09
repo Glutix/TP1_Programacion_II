@@ -47,7 +47,7 @@ def buscar_apellido_nombre():
 
     limpiar_consola()
     print(f"\n=== PACIENTES ENCONTRADOS ({len(pacientes_filtrados)}) ===\n")
-    
+
     for paciente in pacientes_filtrados:
         edad = calcular_edad(paciente["fecha_nacimiento"])
         print(f"ID: {paciente['id']}")
@@ -105,7 +105,7 @@ def buscar_rango_fecha():
     ).strip()
 
     if not fecha_final_str:
-        fecha_final_str = fecha_actual()
+        fecha_final_str = datetime.today().strftime("%d/%m/%Y")
 
     try:
         fecha_inicio = datetime.strptime(fecha_inicio_str, "%d/%m/%Y")
@@ -122,18 +122,27 @@ def buscar_rango_fecha():
         return
 
     # Segundo filtro: historias dentro del rango de fechas
-    historias_en_rango = list(
-        filter(
-            lambda h: fecha_inicio
-            <= datetime.strptime(h["fecha"], "%d/%m/%Y")
-            <= fecha_final,
-            historias_paciente,
-        )
-    )
+    # Convertir fechas del JSON (YYYY-MM-DD) a objetos datetime para comparar
+    historias_en_rango = []
+    for h in historias_paciente:
+        try:
+            # Intentar formato YYYY-MM-DD primero
+            fecha_historia = datetime.strptime(h["fecha"], "%Y-%m-%d")
+        except ValueError:
+            # Si falla, intentar DD/MM/YYYY
+            try:
+                fecha_historia = datetime.strptime(h["fecha"], "%d/%m/%Y")
+            except ValueError:
+                continue  # Saltar si no se puede parsear
+
+        if fecha_inicio <= fecha_historia <= fecha_final:
+            historias_en_rango.append(h)
 
     if not historias_en_rango:
         limpiar_consola()
-        print("No se encontró ninguna historia clínica dentro del rango especificado.\n")
+        print(
+            "No se encontró ninguna historia clínica dentro del rango especificado.\n"
+        )
         return
 
     # Cargar datos de médicos para mostrar información completa
@@ -155,13 +164,22 @@ def buscar_rango_fecha():
 
     print(f"=== HISTORIAS CLÍNICAS EN EL RANGO ({len(historias_en_rango)}) ===")
     print(f"Desde: {fecha_inicio_str} | Hasta: {fecha_final_str}\n")
-    
+
     for indice, h in enumerate(historias_en_rango, 1):
         medico = obtener_por_id(datos_medicos, h["id_medico"])
-        
-        print(f"{indice}. Fecha: {h['fecha']}")
+
+        # Formatear fecha para mostrar
+        try:
+            fecha_obj = datetime.strptime(h["fecha"], "%Y-%m-%d")
+            fecha_mostrar = fecha_obj.strftime("%d/%m/%Y")
+        except ValueError:
+            fecha_mostrar = h["fecha"]  # Usar tal cual si ya está en DD/MM/YYYY
+
+        print(f"{indice}. Fecha: {fecha_mostrar}")
         if medico:
-            print(f"   Médico: Dr/a. {medico['nombre']} {medico['apellido']} ({medico['especialidad']})")
+            print(
+                f"   Médico: Dr/a. {medico['nombre']} {medico['apellido']} ({medico['especialidad']})"
+            )
         print(f"   Afección: {h['enfermedad_afeccion']}")
         print(f"   Observaciones: {h['observaciones']}")
         print("-" * 50)
@@ -179,7 +197,9 @@ def buscar_nacionalidad():
         return
 
     # Solicitar datos del paciente a buscar
-    nacionalidad_busqueda = input("Ingrese la nacionalidad del paciente (búsqueda parcial): ").strip()
+    nacionalidad_busqueda = input(
+        "Ingrese la nacionalidad del paciente (búsqueda parcial): "
+    ).strip()
 
     if not nacionalidad_busqueda:
         limpiar_consola()
@@ -191,19 +211,20 @@ def buscar_nacionalidad():
 
     # FIX: Búsqueda parcial y case-insensitive usando 'in'
     pacientes_filtrados = [
-        p for p in pacientes 
-        if nacionalidad_busqueda_lower in p["nacionalidad"].lower()
+        p for p in pacientes if nacionalidad_busqueda_lower in p["nacionalidad"].lower()
     ]
 
     if not pacientes_filtrados:
         limpiar_consola()
-        print(f"No se encontraron pacientes con nacionalidad que contenga '{nacionalidad_busqueda}'.\n")
+        print(
+            f"No se encontraron pacientes con nacionalidad que contenga '{nacionalidad_busqueda}'.\n"
+        )
         return
 
     limpiar_consola()
     print(f"\n=== PACIENTES ENCONTRADOS ({len(pacientes_filtrados)}) ===")
     print(f"Criterio de búsqueda: '{nacionalidad_busqueda}'\n")
-    
+
     for paciente in pacientes_filtrados:
         edad = calcular_edad(paciente["fecha_nacimiento"])
         print(f"ID: {paciente['id']}")
@@ -255,7 +276,9 @@ def buscar_enfermedad_afeccion():
         return
 
     # Solicitar enfermedad/afección
-    enfermedad_afeccion = input("Ingrese enfermedad/afección a buscar: ").strip().lower()
+    enfermedad_afeccion = (
+        input("Ingrese enfermedad/afección a buscar: ").strip().lower()
+    )
 
     if not enfermedad_afeccion:
         limpiar_consola()
@@ -294,15 +317,26 @@ def buscar_enfermedad_afeccion():
     print(f"Nacionalidad:     {paciente['nacionalidad']}")
     print("=" * 50 + "\n")
 
-    print(f"=== HISTORIAS CLÍNICAS POR ENFERMEDAD/AFECCIÓN ({len(historias_enfermedad_afeccion)}) ===")
+    print(
+        f"=== HISTORIAS CLÍNICAS POR ENFERMEDAD/AFECCIÓN ({len(historias_enfermedad_afeccion)}) ==="
+    )
     print(f"Criterio de búsqueda: '{enfermedad_afeccion}'\n")
-    
+
     for indice, h in enumerate(historias_enfermedad_afeccion, 1):
         medico = obtener_por_id(datos_medicos, h["id_medico"])
-        
-        print(f"{indice}. Fecha: {h['fecha']}")
+
+        # Formatear fecha para mostrar
+        try:
+            fecha_obj = datetime.strptime(h["fecha"], "%Y-%m-%d")
+            fecha_mostrar = fecha_obj.strftime("%d/%m/%Y")
+        except ValueError:
+            fecha_mostrar = h["fecha"]
+
+        print(f"{indice}. Fecha: {fecha_mostrar}")
         if medico:
-            print(f"   Médico: Dr/a. {medico['nombre']} {medico['apellido']} ({medico['especialidad']})")
+            print(
+                f"   Médico: Dr/a. {medico['nombre']} {medico['apellido']} ({medico['especialidad']})"
+            )
         print(f"   Afección: {h['enfermedad_afeccion']}")
         print(f"   Observaciones: {h['observaciones']}")
         print("-" * 50)
@@ -354,8 +388,16 @@ def buscar_medico_trato():
 
     for i, h in enumerate(historias_paciente, 1):
         medico = obtener_por_id(datos_medicos, h["id_medico"])
+
+        # Formatear fecha para mostrar
+        try:
+            fecha_obj = datetime.strptime(h["fecha"], "%Y-%m-%d")
+            fecha_mostrar = fecha_obj.strftime("%d/%m/%Y")
+        except ValueError:
+            fecha_mostrar = h["fecha"]
+
         if medico:
-            print(f"{i}. Fecha: {h['fecha']}")
+            print(f"{i}. Fecha: {fecha_mostrar}")
             print(f"   Médico: Dr/a. {medico['nombre']} {medico['apellido']}")
             print(f"   Matrícula: {medico['matricula']}")
             print(f"   Especialidad: {medico['especialidad']}")
@@ -364,7 +406,7 @@ def buscar_medico_trato():
             print("-" * 60)
             print()
         else:
-            print(f"{i}. Fecha: {h['fecha']}")
+            print(f"{i}. Fecha: {fecha_mostrar}")
             print(f"   [ERROR] Médico no encontrado (ID: {h['id_medico']})")
             print(f"   Enfermedad/Afección: {h['enfermedad_afeccion']}")
             print("-" * 60)
@@ -408,9 +450,11 @@ def buscar_pacientes_por_medico():
 
     # Obtener pacientes únicos
     ids_pacientes = list(set([h["id_paciente"] for h in historias_medico]))
-    
+
     limpiar_consola()
-    print(f"\n=== PACIENTES ATENDIDOS POR DR/A. {medico['nombre'].upper()} {medico['apellido'].upper()} ===\n")
+    print(
+        f"\n=== PACIENTES ATENDIDOS POR DR/A. {medico['nombre'].upper()} {medico['apellido'].upper()} ===\n"
+    )
     print(f"Matrícula: {medico['matricula']}")
     print(f"Especialidad: {medico['especialidad']}")
     print(f"Total de pacientes atendidos: {len(ids_pacientes)}")
@@ -421,14 +465,23 @@ def buscar_pacientes_por_medico():
         paciente = obtener_por_id(datos_pacientes, id_pac)
         if not paciente:
             continue
-        
+
         # Contar atenciones a este paciente
-        atenciones_paciente = [h for h in historias_medico if h["id_paciente"] == id_pac]
-        
+        atenciones_paciente = [
+            h for h in historias_medico if h["id_paciente"] == id_pac
+        ]
+
+        # Formatear última fecha
+        try:
+            fecha_obj = datetime.strptime(atenciones_paciente[-1]["fecha"], "%Y-%m-%d")
+            ultima_fecha = fecha_obj.strftime("%d/%m/%Y")
+        except ValueError:
+            ultima_fecha = atenciones_paciente[-1]["fecha"]
+
         print(f"• Paciente: {paciente['nombre']} {paciente['apellido']}")
         print(f"  DNI: {paciente['dni']}")
         print(f"  Atenciones: {len(atenciones_paciente)}")
-        print(f"  Última atención: {atenciones_paciente[-1]['fecha']}")
+        print(f"  Última atención: {ultima_fecha}")
         print()
 
 
@@ -483,7 +536,9 @@ def menu_busquedas():
 
             else:
                 limpiar_consola()
-                print("Opción no válida. Por favor, seleccione una opción entre 1 y 8.\n")
+                print(
+                    "Opción no válida. Por favor, seleccione una opción entre 1 y 8.\n"
+                )
 
         except ValueError:
             limpiar_consola()
